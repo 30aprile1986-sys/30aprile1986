@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giochi - 30 Aprile 2026</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            background: #04040a;
+            color: #66ffcc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 24px 16px;
+            overflow-x: hidden;
+        }
+        .page-shell {
+            width: min(1100px, 100%);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 0.18em;
+            color: #fff;
+            text-shadow: 0 0 16px rgba(0,255,213,0.35);
+        }
+        header p {
+            margin: 14px auto 0;
+            max-width: 760px;
+            color: #9ef0ff;
+            font-size: 1rem;
+            line-height: 1.7;
+            letter-spacing: 0.04em;
+        }
+        .game-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+        .game-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0,255,213,0.18);
+            padding: 22px;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 0 24px rgba(0,255,213,0.08);
+        }
+        .game-card h2 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+            color: #ffffff;
+            letter-spacing: 0.08em;
+        }
+        .game-card p {
+            margin: 0;
+            color: #c8ffff;
+            line-height: 1.6;
+        }
+        .game-card .placeholder {
+            margin-top: 20px;
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.06);
+            color: #00ffd5;
+            border: 1px dashed rgba(0,255,213,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.82rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #00ffd5;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 12px 18px;
+            border: 1px solid rgba(0,255,213,0.3);
+            background: rgba(255,255,255,0.03);
+        }
+        .back-link:hover {
+            color: #ff4dfd;
+            border-color: #ff4dfd;
+        }
+        @media (max-width: 640px) {
+            header h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <header>
+            <h1>Seleziona i Giochi</h1>
+            <p>Qui potrai scegliere i giochi pensati per accompagnare la celebrazione del 40° anniversario del primo ping italiano.</p>
+        </header>
+        <div class="game-list">
+            <div class="game-card">
+                <div>
+                    <h2>Gioco 1</h2>
+                    <p>Spazio riservato. Aggiungerò qui il primo gioco con dettagli e link.</p>
+                </div>
+                <div class="placeholder">In arrivo</div>
+            </div>
+            <div class="game-card">
+                <div>
+                    <h2>Gioco 2</h2>
+                    <p>Spazio riservato. Qui inserirò il secondo gioco appena sarà pronto.</p>
+                </div>
+                <div class="placeholder">In arrivo</div>
+            </div>
+            <div class="game-card">
+                <div>
+                    <h2>Gioco 3</h2>
+                    <p>Spazio riservato. Aggiungerò una descrizione e il link quando il gioco sarà disponibile.</p>
+                </div>
+                <div class="placeholder">In arrivo</div>
+            </div>
+        </div>
+        <a class="back-link" href="index.html">Torna alla pagina principale</a>
+    </div>
+</body>
+</html>
