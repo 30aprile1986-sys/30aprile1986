@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz su Internet</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", monospace;
+    color: #e0fdfb;
+    background: linear-gradient(180deg, #020202, #060b1a, #020202);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0,255,255,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #14002d, #001a33);
+    border-bottom: 3px solid #00ffd5;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 3rem;
+    color: white;
+    text-shadow: 0 0 12px cyan;
+}
+
+header h2 {
+    margin-top: 12px;
+    color: #b2ff8f;
+    font-weight: normal;
+}
+
+/* CONTENITORE */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: rgba(10,14,25,0.95);
+    border-radius: 14px;
+    border: 1px solid rgba(0,255,213,0.3);
+    box-shadow: 0 0 30px rgba(0,255,213,0.15);
+}
+
+/* TESTI */
+.intro {
+    color: #9ef0ff;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-size: 1.05rem;
+}
+
+/* DOMANDE */
+.question {
+    margin-top: 22px;
+    padding: 18px;
+    border-left: 4px solid #ff4dfd;
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+}
+
+.question p {
+    margin-top: 0;
+    font-weight: bold;
+}
+
+/* RADIO */
+label {
+    display: block;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    margin-right: 8px;
+}
+
+/* BOTTONE */
+button {
+    display: block;
+    margin: 35px auto;
+    padding: 15px 40px;
+    background: #00ffd5;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4dfd;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* RISULTATO */
+#risultato {
+    display: none;
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #00ffd5;
+    background: rgba(0,0,0,0.8);
+    text-align: center;
+}
+
+#risultato h3 {
+    color: #e8ff6c;
+    font-size: 1.8rem;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #66ffcc;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>QUIZ SU INTERNET</h1>
+    <h2>Mettiti alla prova nel mondo digitale</h2>
+</header>
+
+<div class="container">
+
+<p class="intro">
+<strong>Mettiti alla prova con questo quiz su Internet!</strong><br>
+Usi il web ogni giorno, ma quanto lo conosci davvero? Tra browser, cloud,
+sicurezza e social network, Internet fa parte della nostra vita quotidiana.
+</p>
+
+<p class="intro">
+Rispondi alle domande e scopri se sei un vero esperto digitale o se c’è
+ancora qualcosa da imparare. Pronto a iniziare? 
+</p>
+
+<form id="quiz">
+
+<div class="question"><p>1. Cos’è un browser?</p>
+<label><input type="radio" name="q1" value="0" required> Un sistema operativo</label>
+<label><input type="radio" name="q1" value="1"> Software per navigare su Internet</label>
+<label><input type="radio" name="q1" value="0"> Un antivirus</label>
+</div>
+
+<div class="question"><p>2. Quale è un linguaggio di programmazione?</p>
+<label><input type="radio" name="q2" value="0" required> Google</label>
+<label><input type="radio" name="q2" value="0"> Windows</label>
+<label><input type="radio" name="q2" value="1"> JavaScript</label>
+</div>
+
+<div class="question"><p>3. Cosa significa upload?</p>
+<label><input type="radio" name="q3" value="1" required> Caricare dati su Internet</label>
+<label><input type="radio" name="q3" value="0"> Scaricare dati</label>
+<label><input type="radio" name="q3" value="0"> Eliminare file</label>
+</div>
+
+<div class="question"><p>4. A cosa serve un antivirus?</p>
+<label><input type="radio" name="q4" value="0" required> Velocizzare il computer</label>
+<label><input type="radio" name="q4" value="1"> Proteggere da software dannosi</label>
+<label><input type="radio" name="q4" value="0"> Salvare file</label>
+</div>
+
+<div class="question"><p>5. Cos’è il cloud computing?</p>
+<label><input type="radio" name="q5" value="0" required> Un virus</label>
+<label><input type="radio" name="q5" value="0"> Un computer</label>
+<label><input type="radio" name="q5" value="1"> Servizi online per gestire dati</label>
+</div>
+
+<div class="question"><p>6. Cosa significa USB?</p>
+<label><input type="radio" name="q6" value="1" required> Universal Serial Bus</label>
+<label><input type="radio" name="q6" value="0"> United System Base</label>
+<label><input type="radio" name="q6" value="0"> Universal System Block</label>
+</div>
+
+<div class="question"><p>7. Qual è un social network?</p>
+<label><input type="radio" name="q7" value="0" required> Word</label>
+<label><input type="radio" name="q7" value="1"> Instagram</label>
+<label><input type="radio" name="q7" value="0"> Excel</label>
+</div>
+
+<div class="question"><p>8. A cosa serve un motore di ricerca?</p>
+<label><input type="radio" name="q8" value="0" required> Proteggere il computer</label>
+<label><input type="radio" name="q8" value="0"> Modificare file</label>
+<label><input type="radio" name="q8" value="1"> Trovare informazioni online</label>
+</div>
+
+<div class="question"><p>9. Cos’è un PDF?</p>
+<label><input type="radio" name="q9" value="0" required> Programma</label>
+<label><input type="radio" name="q9" value="1"> Documento digitale</label>
+<label><input type="radio" name="q9" value="0"> Sistema operativo</label>
+</div>
+
+<div class="question"><p>10. A cosa serve una password?</p>
+<label><input type="radio" name="q10" value="0" required> Aumentare velocità</label>
+<label><input type="radio" name="q10" value="0"> Salvare dati</label>
+<label><input type="radio" name="q10" value="1"> Proteggere un account</label>
+</div>
+
+<button type="submit">Concludi il Quiz</button>
+</form>
+
+<div id="risultato"></div>
+
+<footer>
+Quiz didattico – Educazione digitale e uso consapevole di Internet
+</footer>
+
+</div>
+
+<script>
+document.getElementById("quiz").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let punteggio = 0;
+
+    for (let i = 1; i <= 10; i++) {
+        const risposta = document.querySelector('input[name="q' + i + '"]:checked');
+        if (risposta) {
+            punteggio += parseInt(risposta.value);
+        }
+    }
+
+    let messaggio = "";
+    if (punteggio <= 4) {
+        messaggio = "Buon inizio! Continua a esplorare il mondo digitale.";
+    } else if (punteggio <= 7) {
+        messaggio = "Buona preparazione! Hai delle ottime basi.";
+    } else {
+        messaggio = "Complimenti! Sei un vero esperto di Internet!";
+    }
+
+    const risultato = document.getElementById("risultato");
+    risultato.style.display = "block";
+    risultato.innerHTML = `
+        <h3>Punteggio finale: ${punteggio} / 10</h3>
+        <p>${messaggio}</p>
+        <p>Grazie per aver partecipato al quiz!</p>
+    `;
+
+    window.scrollTo({ top: risultato.offsetTop, behavior: 'smooth' });
+    this.reset();
+});
+</script>
+
+</body>
+</html>
+
