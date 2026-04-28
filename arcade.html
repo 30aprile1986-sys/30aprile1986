@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Internet Arcade CLEAN</title>
+
+<style>
+body{
+margin:0;
+font-family:Courier New;
+background:#050505;
+color:#66ffcc;
+}
+
+.container{text-align:center;padding:20px;max-width:900px;margin:auto}
+
+.hidden{display:none}
+
+button,input{
+padding:10px;
+margin:5px;
+background:black;
+color:#00ffd5;
+border:2px solid #00ffd5;
+cursor:pointer;
+}
+
+button:hover{color:#ff4dfd}
+
+#menu button{display:block;width:100%}
+
+.card{
+width:70px;height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+border:1px solid #00ffd5;
+font-size:2rem;
+cursor:pointer;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+justify-items:center;
+}
+
+canvas{
+background:black;
+border:1px solid #00ffd5;
+display:block;
+margin:auto;
+}
+
+#back{
+position:fixed;
+top:10px;
+left:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🌐 INTERNET ARCADE</h1>
+
+<!-- LOGIN -->
+<div id="login">
+<input id="user" placeholder="username">
+<br>
+<button onclick="start()">ENTRA</button>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="hidden">
+<button onclick="openMemory()">🧩 MEMORY</button>
+<button onclick="openPing()">🏓 PING</button>
+<button onclick="openDodge()">🚀 DODGE</button>
+<h3 id="stats"></h3>
+</div>
+
+<button id="back" class="hidden" onclick="goMenu()">⬅ MENU</button>
+
+<!-- MEMORY -->
+<div id="memory" class="grid hidden"></div>
+
+<!-- PING -->
+<canvas id="ping" width="400" height="300" class="hidden"></canvas>
+
+<!-- DODGE -->
+<canvas id="dodge" width="400" height="300" class="hidden"></canvas>
+
+</div>
+
+<script>
+
+let user=""
+let score=0
+let startTime
+
+function start(){
+user=document.getElementById("user").value||"Player"
+document.getElementById("login").classList.add("hidden")
+document.getElementById("menu").classList.remove("hidden")
+document.getElementById("back").classList.remove("hidden")
+startTime=Date.now()
+setInterval(update,1000)
+}
+
+function update(){
+let t=Math.floor((Date.now()-startTime)/1000)
+document.getElementById("stats").innerText=user+" | "+t+"s | score "+score
+}
+
+function hideAll(){
+memory.style.display="none"
+ping.style.display="none"
+dodge.style.display="none"
+menu.style.display="none"
+}
+
+// MENU BUTTON
+function goMenu(){
+hideAll()
+menu.style.display="block"
+}
+
+// ================= MEMORY =================
+let memory=document.getElementById("memory")
+let first=null,lock=false,done=0
+
+function openMemory(){
+hideAll()
+memory.style.display="grid"
+memory.innerHTML=""
+done=0
+
+let icons=["🌐","💻","📱","🔍","🌐","💻","📱","🔍"]
+icons.sort(()=>Math.random()-0.5)
+
+icons.forEach(i=>{
+let c=document.createElement("div")
+c.className="card"
+c.innerText="?"
+c.dataset.icon=i
+c.dataset.ok="0"
+
+c.onclick=()=>{
+
+if(lock||c.dataset.ok=="1")return
+
+c.innerText=i
+
+if(!first){
+first=c
+return
+}
+
+lock=true
+
+if(first.dataset.icon==c.dataset.icon){
+first.dataset.ok="1"
+c.dataset.ok="1"
+score+=2
+done+=2
+first=null
+lock=false
+
+if(done==icons.length){
+setTimeout(goMenu,800)
+}
+
+}else{
+setTimeout(()=>{
+first.innerText="?"
+c.innerText="?"
+first=null
+lock=false
+},500)
+}
+
+}
+
+memory.appendChild(c)
+})
+}
+
+// ================= PING =================
+let ping=document.getElementById("ping")
+let ctx,pX=150,bX=200,bY=150,dx=3,dy=3
+
+function openPing(){
+hideAll()
+ping.style.display="block"
+ctx=ping.getContext("2d")
+
+ping.onmousemove=e=>pX=e.offsetX-40
+
+pingLoop()
+}
+
+function pingLoop(){
+ctx.clearRect(0,0,400,300)
+
+ctx.fillStyle="white"
+ctx.beginPath()
+ctx.arc(bX,bY,8,0,Math.PI*2)
+ctx.fill()
+
+ctx.fillRect(pX,280,80,10)
+
+bX+=dx
+bY+=dy
+
+if(bX<8||bX>392)dx*=-1
+if(bY<8)dy*=-1
+
+if(bY>270&&bX>pX&&bX<pX+80){
+dy*=-1
+bY=268
+score++
+}
+
+if(bY>300){
+goMenu()
+return
+}
+
+requestAnimationFrame(pingLoop)
+}
+
+// ================= DODGE =================
+let dodge=document.getElementById("dodge")
+let dctx,x=200,y=250,ex=100,ey=0
+
+function openDodge(){
+hideAll()
+dodge.style.display="block"
+dctx=dodge.getContext("2d")
+
+let c=5
+let o=document.createElement("div")
+o.style.position="fixed"
+o.style.top="40%"
+o.style.left="40%"
+o.style.color="#00ffd5"
+o.style.fontSize="30px"
+document.body.appendChild(o)
+
+let t=setInterval(()=>{
+o.innerText="START TRA "+c
+c--
+if(c<0){
+clearInterval(t)
+o.remove()
+startDodge()
+}
+},1000)
+}
+
+function startDodge(){
+
+document.onkeydown=e=>{
+if(e.key=="ArrowLeft")x-=15
+if(e.key=="ArrowRight")x+=15
+}
+
+loopD()
+}
+
+function loopD(){
+dctx.clearRect(0,0,400,300)
+
+dctx.fillStyle="white"
+dctx.fillRect(x,y,30,30)
+dctx.fillRect(ex,ey,20,20)
+
+ey+=5
+if(ey>300){
+ey=0
+ex=Math.random()*380
+}
+
+if(ey>y&&ex>x&&ex<x+30){
+goMenu()
+return
+}
+
+requestAnimationFrame(loopD)
+}
+
+</script>
+
+</body>
+</html>
