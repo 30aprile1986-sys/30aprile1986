@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Finale</title>
+</head>
+
+<body style="margin:0; font-family:'Courier New', monospace; line-height:1.6; color:#66ffcc; background: radial-gradient(circle at top, rgba(0,255,255,0.08), transparent 20%), linear-gradient(180deg, #020202 0%, #080808 40%, #020202 100%); text-align:center;">
+
+<h2 style="margin-top:40px; font-size:2rem; letter-spacing:0.15em; color:#ffffff; text-shadow:0 0 18px rgba(0,255,255,0.65);">
+TERMINALE FINALE
+</h2>
+
+<div style="max-width:700px; margin:40px auto; background: rgba(12,14,22,0.95); border:1px solid rgba(0,255,213,0.22); box-shadow:0 0 30px rgba(0,255,213,0.08); padding:30px;">
+
+  <p style="color:#9ef0ff;">Unisci tutto ciò che hai trovato:</p>
+
+  <p style="color:#ff4dfd; letter-spacing:0.1em;">
+    ARPANET - 1991 - 404 - 403
+  </p>
+
+  <br>
+
+  <input id="pass" placeholder="Inserisci codice finale"
+    style="padding:10px; background:black; border:1px solid #00ffd5; color:#00ffd5; outline:none; width:70%;">
+
+  <br><br>
+
+  <button onclick="check()"
+    style="padding:10px 20px; background:transparent; border:1px solid #00ffd5; color:#00ffd5; cursor:pointer; letter-spacing:0.1em;">
+    SBLOCCA
+  </button>
+
+</div>
+
+<script>
+function check() {
+  let p = document.getElementById("pass").value.toLowerCase();
+
+  if(p === "arpanet1991404403") {
+    document.body.innerHTML = `
+      <div style="margin-top:100px;">
+        <h1 style="font-size:3rem; color:#00ffd5; text-shadow:0 0 25px #00ffd5;">
+          ACCESSO COMPLETATO
+        </h1>
+        <p style="color:#b2ff8f; font-size:1.2rem;">
+          SISTEMA SBLOCCATO 🎉
+        </p>
+        <p style="color:#ff4dfd;">
+          Complimenti hacker.
+        </p>
+      </div>
+    `;
+  } else {
+    alert("❌ Codice finale errato!");
+  }
+}
+</script>
+
+</body>
+</html>

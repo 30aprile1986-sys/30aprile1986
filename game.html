@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ACCESSO VIETATO</title>
+</head>
+
+<body style="margin:0; font-family:'Courier New', monospace; line-height:1.6; color:#66ffcc; background: radial-gradient(circle at top, rgba(0,255,255,0.08), transparent 20%), linear-gradient(180deg, #020202 0%, #080808 40%, #020202 100%);">
+
+<h1 style="text-align:center; margin-top:40px; font-size:2.5rem; letter-spacing:0.15em; color:#ffffff; text-shadow:0 0 18px rgba(0,255,255,0.65);">
+⚠️ SISTEMA COMPROMESSO ⚠️
+</h1>
+
+<div style="max-width:800px; margin:20px auto; background: rgba(12,14,22,0.95); border:1px solid rgba(0,255,213,0.22); box-shadow:0 0 30px rgba(0,255,213,0.08); padding:20px;">
+  <p style="color:#9ef0ff;">
+  Un hacker ha bloccato il sistema.<br>
+  Avete pochi minuti per recuperare il <b style="color:#ff4dfd;">codice root</b> e salvare la rete.
+  </p>
+</div>
+
+<div style="max-width:800px; margin:20px auto; background: rgba(12,14,22,0.95); border:1px solid rgba(0,255,213,0.22); box-shadow:0 0 30px rgba(0,255,213,0.08); padding:20px;">
+  <h3 style="color:#b2ff8f; letter-spacing:0.1em;">🧠 REGOLE DEL GIOCO</h3>
+  <p style="color:#9ef0ff;">
+  - Ogni livello ha una password da trovare<br>
+  - Gli indizi sono nascosti nel sito<br>
+  - A volte devi <b style="color:#ff4dfd;">pensare fuori dagli schemi</b><br>
+  - Puoi usare Google 😄<br>
+  - Se sei bloccato... guarda meglio 👀<br>
+  </p>
+</div>
+
+<div style="max-width:800px; margin:20px auto; background: rgba(12,14,22,0.95); border:1px solid rgba(0,255,213,0.22); box-shadow:0 0 30px rgba(0,255,213,0.08); padding:20px;">
+  <h3 style="color:#b2ff8f; letter-spacing:0.1em;">💡 PRIMO INDIZIO</h3>
+  <p style="color:#fefc9b;">
+  "Il primo vero internet della storia..."
+  </p>
+</div>
+
+<div style="text-align:center; margin-top:30px;">
+  <input id="pass" placeholder="Inserisci password"
+    style="padding:10px; background:black; border:1px solid #00ffd5; color:#00ffd5; outline:none;">
+
+  <br><br>
+
+  <button onclick="check()"
+    style="padding:10px 20px; background:transparent; border:1px solid #00ffd5; color:#00ffd5; cursor:pointer;">
+    ACCEDI
+  </button>
+
+  <p id="msg" style="color:#ff4dfd; margin-top:10px;"></p>
+</div>
+
+<script>
+function check() {
+  let p = document.getElementById("pass").value.toLowerCase();
+
+  if(p === "arpanet") {
+    window.location.href = "livello2.html";
+  } else {
+    document.getElementById("msg").innerHTML = "❌ Password errata!";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -59,6 +59,39 @@ position:fixed;
 top:10px;
 left:10px;
 }
+
+#return-games{
+position:fixed;
+top:10px;
+right:10px;
+padding:10px 16px;
+background:black;
+color:#00ffd5;
+border:2px solid #00ffd5;
+cursor:pointer;
+}
+
+#return-games:hover{color:#ff4dfd}
+
+#controls{
+display:none;
+justify-content:center;
+gap:10px;
+margin:14px auto;
+max-width:420px;
+}
+
+.touch-button{
+padding:14px 20px;
+min-width:80px;
+background:black;
+color:#00ffd5;
+border:2px solid #00ffd5;
+border-radius:12px;
+font-size:1.3rem;
+}
+
+.touch-button:hover{color:#ff4dfd}
 </style>
 
 </head>
@@ -85,6 +118,12 @@ left:10px;
 </div>
 
 <button id="back" class="hidden" onclick="goMenu()">⬅ MENU</button>
+<button id="return-games" class="hidden" onclick="goGames()">↩ GIOCHI</button>
+
+<div id="controls" class="hidden">
+    <button class="touch-button" id="btn-left">◀</button>
+    <button class="touch-button" id="btn-right">▶</button>
+</div>
 
 <!-- MEMORY -->
 <div id="memory" class="grid hidden"></div>
@@ -108,6 +147,7 @@ user=document.getElementById("user").value||"Player"
 document.getElementById("login").classList.add("hidden")
 document.getElementById("menu").classList.remove("hidden")
 document.getElementById("back").classList.remove("hidden")
+document.getElementById("return-games").classList.remove("hidden")
 startTime=Date.now()
 setInterval(update,1000)
 }
@@ -122,6 +162,12 @@ memory.style.display="none"
 ping.style.display="none"
 dodge.style.display="none"
 menu.style.display="none"
+controls.style.display="none"
+touchLeft=false
+touchRight=false
+if(pingAnimationId) cancelAnimationFrame(pingAnimationId)
+if(dodgeAnimationId) cancelAnimationFrame(dodgeAnimationId)
+document.onkeydown=null
 }
 
 // MENU BUTTON
@@ -130,9 +176,30 @@ hideAll()
 menu.style.display="block"
 }
 
+function goGames(){
+window.location.href="giochi.html"
+}
+
 // ================= MEMORY =================
 let memory=document.getElementById("memory")
+let controls=document.getElementById("controls")
+let btnLeft=document.getElementById("btn-left")
+let btnRight=document.getElementById("btn-right")
+let pingAnimationId=0, dodgeAnimationId=0
+let touchLeft=false, touchRight=false
 let first=null,lock=false,done=0
+
+btnLeft.addEventListener("mousedown",()=>touchLeft=true)
+btnLeft.addEventListener("mouseup",()=>touchLeft=false)
+btnLeft.addEventListener("mouseleave",()=>touchLeft=false)
+btnLeft.addEventListener("touchstart",e=>{e.preventDefault(); touchLeft=true})
+btnLeft.addEventListener("touchend",e=>{e.preventDefault(); touchLeft=false})
+
+btnRight.addEventListener("mousedown",()=>touchRight=true)
+btnRight.addEventListener("mouseup",()=>touchRight=false)
+btnRight.addEventListener("mouseleave",()=>touchRight=false)
+btnRight.addEventListener("touchstart",e=>{e.preventDefault(); touchRight=true})
+btnRight.addEventListener("touchend",e=>{e.preventDefault(); touchRight=false})
 
 function openMemory(){
 hideAll()
@@ -197,14 +264,29 @@ let ctx,pX=150,bX=200,bY=150,dx=3,dy=3
 function openPing(){
 hideAll()
 ping.style.display="block"
+controls.style.display="flex"
 ctx=ping.getContext("2d")
+pX=150
+bX=200
+bY=150
+dx=3
+dy=3
 
-ping.onmousemove=e=>pX=e.offsetX-40
+touchLeft=false
+touchRight=false
+
+ping.onmousemove=e=>{
+let rect=ping.getBoundingClientRect()
+pX=Math.min(Math.max(e.clientX-rect.left-40,0),320)
+}
 
 pingLoop()
 }
 
 function pingLoop(){
+if(touchLeft) pX=Math.max(0,pX-6)
+if(touchRight) pX=Math.min(320,pX+6)
+
 ctx.clearRect(0,0,400,300)
 
 ctx.fillStyle="white"
@@ -231,7 +313,7 @@ goMenu()
 return
 }
 
-requestAnimationFrame(pingLoop)
+pingAnimationId=requestAnimationFrame(pingLoop)
 }
 
 // ================= DODGE =================
@@ -241,7 +323,15 @@ let dctx,x=200,y=250,ex=100,ey=0
 function openDodge(){
 hideAll()
 dodge.style.display="block"
+controls.style.display="flex"
 dctx=dodge.getContext("2d")
+x=200
+y=250
+ex=100
+ey=0
+
+touchLeft=false
+touchRight=false
 
 let c=5
 let o=document.createElement("div")
@@ -274,6 +364,10 @@ loopD()
 }
 
 function loopD(){
+if(touchLeft) x-=10
+if(touchRight) x+=10
+x=Math.max(0, Math.min(370, x))
+
 dctx.clearRect(0,0,400,300)
 
 dctx.fillStyle="white"
@@ -284,6 +378,7 @@ ey+=5
 if(ey>300){
 ey=0
 ex=Math.random()*380
+score++
 }
 
 if(ey>y&&ex>x&&ex<x+30){
@@ -291,7 +386,7 @@ goMenu()
 return
 }
 
-requestAnimationFrame(loopD)
+dodgeAnimationId=requestAnimationFrame(loopD)
 }
 
 </script>
